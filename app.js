@@ -34,15 +34,16 @@ app.get('/', function (req, res) {
 
 app.get('/fruits/', function (req, res) {
    res.type('application/json');
-   var resJSON = [
-                {
-                  "id": 1,
-                  "name": "alma"
-                },
-                {
-                  "id": 2,
-                  "name": "körte"
-                }
-              ];
+   var resJSON = 
+   [
+      {
+         "id": 1,
+         "name": "alma"
+      },
+      {
+         "id": 2,
+         "name": "körte"
+      }
+   ];
    res.send(resJSON);
 });
