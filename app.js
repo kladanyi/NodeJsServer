@@ -2,7 +2,7 @@
 
 var express = require('express'),
     bodyParser = require('body-parser'),
-    jwt = require('jsonwebtoken'),
+    //jwt = require('jsonwebtoken'),
     cors = require('cors'),
     app = express();
    
@@ -31,7 +31,6 @@ app.get('/', function (req, res) {
     res.send('Szia én, egy NodeJS szerver vagyok');
 });
 
-
 app.get('/fruits/', function (req, res) {
    res.type('application/json');
    var resJSON = 
@@ -43,7 +42,52 @@ app.get('/fruits/', function (req, res) {
       {
          "id": 2,
          "name": "körte"
-      }
+      },
+      {
+         "id": 3,
+         "name": "szőlő"
+      },
+      {
+         "id": 4,
+         "name": "ananász"
+      },
    ];
    res.send(resJSON);
+});
+
+app.get('/fruits/:id', function (req, res) {
+   res.type('application/json');
+   var resJSON = 
+   [
+      {
+         "id": 1,
+         "name": "alma",
+         "description": "pios és fényes, de vigyázat, Hófehérke pórul járt vele... :("
+      },
+      {
+         "id": 2,
+         "name": "körte",
+         "description": "Süsü szereti a vad változatát."
+      },
+      {
+         "id": 3,
+         "name": "szőlő",
+         "description": "biztos van róla mese... Pl. az Arany szőlőfürt :)"
+      },
+      {
+         "id": 4,
+         "name": "ananász",
+         "description": "Legalább két történetben fontos szerepet kap egy-egy epizódban."
+      },
+   ];
+   
+   
+   console.log(typeof resJSON[0].id + ' ' + typeof req.params.id);
+   for (var i in resJSON) {
+      if (resJSON[i].id == req.params.id) {
+         res.send(resJSON[i]);
+         return;
+      }
+   }
+   res.status(404).send('Nem létező id: ' + req.params.id + '.');
 });
