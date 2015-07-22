@@ -33,7 +33,7 @@ app.get('/', function (req, res) {
 
 app.get('/fruits/', function (req, res) {
    res.type('application/json');
-   var resJSON = 
+   var fruits = 
    [
       {
          "id": 1,
@@ -52,6 +52,18 @@ app.get('/fruits/', function (req, res) {
          "name": "ananász"
       },
    ];
+   
+	if (!req.query.name) {
+		res.send(fruits);
+		return;
+	}
+   
+	var resJSON = [];
+	for (var i in fruits) {
+		if (fruits[i].name.indexOf(req.query.name) > -1) {
+   			resJSON.push(fruits[i]);
+		}
+   }
    res.send(resJSON);
 });
 
@@ -81,8 +93,6 @@ app.get('/fruits/:id', function (req, res) {
       },
    ];
    
-   
-   console.log(typeof resJSON[0].id + ' ' + typeof req.params.id);
    for (var i in resJSON) {
       if (resJSON[i].id == req.params.id) {
          res.send(resJSON[i]);
