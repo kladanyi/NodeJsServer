@@ -51,6 +51,78 @@ app.get('/fruits/', function (req, res) {
          "id": 4,
          "name": "ananász"
       },
+      {
+         "id": 5,
+         "name": "ribizli"
+      },
+      {
+         "id": 6,
+         "name": "eper"
+      },
+      {
+         "id": 7,
+         "name": "málna"
+      },
+      {
+         "id": 8,
+         "name": "narancs"
+      },
+      {
+         "id": 9,
+         "name": "banán"
+      },
+      {
+         "id": 10,
+         "name": "dinnye"
+      },
+      {
+         "id": 11,
+         "name": "mangó"
+      },
+      {
+         "id": 12,
+         "name": "piszke"
+      },
+      {
+         "id": 13,
+         "name": "barack"
+      },
+      {
+         "id": 14,
+         "name": "meggy"
+      },
+      {
+         "id": 15,
+         "name": "cseresznye"
+      },
+      {
+         "id": 16,
+         "name": "áfonya"
+      },
+      {
+         "id": 17,
+         "name": "kivi"
+      },
+      {
+         "id": 18,
+         "name": "füge"
+      },
+      {
+         "id": 19,
+         "name": "citrom"
+      },
+      {
+         "id": 20,
+         "name": "maracuja"
+      },
+      {
+         "id": 21,
+         "name": "avokádó"
+      },
+      {
+         "id": 22,
+         "name": "papaja"
+      }
    ];
    
 	if (!req.query.name) {
@@ -91,6 +163,96 @@ app.get('/fruits/:id', function (req, res) {
          "name": "ananász",
          "description": "Legalább két történetben fontos szerepet kap egy-egy epizódban."
       },
+      {
+         "id": 5,
+         "name": "ribizli",
+         "description": ""
+      },
+      {
+         "id": 6,
+         "name": "eper",
+         "description": ""
+      },
+      {
+         "id": 7,
+         "name": "málna",
+         "description": ""
+      },
+      {
+         "id": 8,
+         "name": "narancs",
+         "description": ""
+      },
+      {
+         "id": 9,
+         "name": "banán",
+         "description": ""
+      },
+      {
+         "id": 10,
+         "name": "dinnye",
+         "description": ""
+      },
+      {
+         "id": 11,
+         "name": "mangó",
+         "description": ""
+      },
+      {
+         "id": 12,
+         "name": "piszke",
+         "description": ""
+      },
+      {
+         "id": 13,
+         "name": "barack",
+         "description": ""
+      },
+      {
+         "id": 14,
+         "name": "meggy",
+         "description": ""
+      },
+      {
+         "id": 15,
+         "name": "cseresznye",
+         "description": ""
+      },
+      {
+         "id": 16,
+         "name": "áfonya",
+         "description": ""
+      },
+      {
+         "id": 17,
+         "name": "kivi",
+         "description": ""
+      },
+      {
+         "id": 18,
+         "name": "füge",
+         "description": ""
+      },
+      {
+         "id": 19,
+         "name": "citrom",
+         "description": ""
+      },
+      {
+         "id": 20,
+         "name": "maracuja",
+         "description": ""
+      },
+      {
+         "id": 21,
+         "name": "avokádó",
+         "description": ""
+      },
+      {
+         "id": 22,
+         "name": "papaja",
+         "description": ""
+      }
    ];
    
    for (var i in resJSON) {
