@@ -263,3 +263,12 @@ app.get('/fruits/:id', function (req, res) {
    }
    res.status(404).send('Nem létező id: ' + req.params.id + '.');
 });
+
+app.get('/param/:a', function (req, res) {
+	res.type('application/json');
+	var resObj = {
+		path_params: req.params,
+		get_params: req.query
+	}
+	res.send(resObj);
+});
