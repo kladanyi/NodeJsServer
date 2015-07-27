@@ -268,7 +268,15 @@ app.get('/param/:a', function (req, res) {
 	res.type('application/json');
 	var resObj = {
 		path_params: req.params,
-		get_params: req.query,
+		get_params: req.query
+	}
+	res.send(resObj);
+});
+
+app.post('/param/:a', function (req, res) {
+	res.type('application/json');
+	var resObj = {
+		path_params: req.params,
 		body_params: req.body
 	}
 	res.send(resObj);
