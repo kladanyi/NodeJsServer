@@ -275,9 +275,21 @@ app.get('/param/:a', function (req, res) {
 
 app.post('/param/:a', function (req, res) {
 	res.type('application/json');
+	console.log('body:');
+	console.log(req.body);
 	var resObj = {
 		path_params: req.params,
 		body_params: req.body
 	}
 	res.send(resObj);
+});
+
+app.put('/param', function(req, res) {
+	res.type('text/plain');
+    res.send('PUT megy.');
+});
+
+app.delete('/param', function(req, res) {
+	res.type('text/plain');
+    res.send('DELETE megy.');
 });
