@@ -268,28 +268,42 @@ app.get('/param/:a', function (req, res) {
 	res.type('application/json');
 	var resObj = {
 		path_params: req.params,
-		get_params: req.query
+		get_params: req.query,
+		body_params: req.body,
+		header_data: req.headers
 	}
 	res.send(resObj);
 });
 
 app.post('/param/:a', function (req, res) {
 	res.type('application/json');
-	console.log('body:');
-	console.log(req.body);
 	var resObj = {
 		path_params: req.params,
-		body_params: req.body
+		get_params: req.query,
+		body_params: req.body,
+		header_data: req.headers
 	}
 	res.send(resObj);
 });
 
-app.put('/param', function(req, res) {
-	res.type('text/plain');
-    res.send('PUT megy.');
+app.put('/param/:a', function(req, res) {
+	res.type('application/json');
+    var resObj = {
+		path_params: req.params,
+		get_params: req.query,
+		body_params: req.body,
+		header_data: req.headers
+	}
+	res.send(resObj);
 });
 
-app.delete('/param', function(req, res) {
-	res.type('text/plain');
-    res.send('DELETE megy.');
+app.delete('/param/:a', function(req, res) {
+	res.type('application/json');
+    var resObj = {
+		path_params: req.params,
+		get_params: req.query,
+		body_params: req.body,
+		header_data: req.headers
+	}
+	res.send(resObj);
 });
