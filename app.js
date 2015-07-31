@@ -8,9 +8,6 @@ var express = require('express'),
    
 app.use(cors());
 var port = 3005;
-
-app.listen(port);
-console.log('Minta válaszok port=' + port);
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -307,3 +304,7 @@ app.delete('/param/:a', function(req, res) {
 	}
 	res.send(resObj);
 });
+
+
+app.listen(port);
+console.log('Minta válaszok port=' + port);
