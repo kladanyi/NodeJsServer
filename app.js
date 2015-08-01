@@ -1,13 +1,17 @@
 'use strict';
 
+var staticData = {}; // nem életszerű, adatbázisban tárolás helyett.
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     //jwt = require('jsonwebtoken'),
     cors = require('cors'),
-    app = express();
+    app = express(),
+	config = require('./config');;
    
-app.use(cors());
 var port = 3005;
+
+app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -26,6 +30,11 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.type('text/plain');
     res.send('Szia én, egy NodeJS szerver vagyok');
+});
+
+app.get('/static-data', function (req, res) {
+    res.type('application/json');
+    res.send(staticData);
 });
 
 app.get('/fruits/', function (req, res) {
@@ -303,6 +312,25 @@ app.delete('/param/:a', function(req, res) {
 		header_data: req.headers
 	}
 	res.send(resObj);
+});
+
+app.post('/setup', function(req, res) {
+
+	// create a sample user
+	var user = { 
+		name: req.body.name, 
+		password: req.body.pass,
+	};
+	if (!config.users) {
+		config.users = {};
+	}
+	if(config.users[user.name]) {
+		res.json({succes: false, msg: 'Már létező felhasználó.'});
+	} else {
+		config.users[user.name] = user;
+		res.json({success: true});
+	}
+
 });
 
 
