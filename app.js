@@ -1,10 +1,12 @@
 'use strict';
 
-var staticData = {}; // nem életszerű, adatbázisban tárolás helyett.
+var staticData = {
+	users: {}
+}; // nem életszerű, adatbázisban tárolás helyett.
 
 var express = require('express'),
     bodyParser = require('body-parser'),
-    //jwt = require('jsonwebtoken'),
+    jwt = require('jsonwebtoken'),
     cors = require('cors'),
     app = express(),
 	config = require('./config');;
@@ -30,11 +32,6 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.type('text/plain');
     res.send('Szia én, egy NodeJS szerver vagyok');
-});
-
-app.get('/static-data', function (req, res) {
-    res.type('application/json');
-    res.send(staticData);
 });
 
 app.get('/fruits/', function (req, res) {
@@ -314,23 +311,72 @@ app.delete('/param/:a', function(req, res) {
 	res.send(resObj);
 });
 
-app.post('/setup', function(req, res) {
+app.get('/static-data', function (req, res) {
+	var token = req.headers['x-access-token'];
+	if (token) {
+		jwt.verify(token, config.secret, function(err, decoded) {
+			if (err) {
+				return res.json({
+					success: false,
+					msg: 'Token hitelesítése sikertelen.'
+				});
+			} else {
+				req.decoded = decoded;
+				// next();
+				if(staticData.users[decoded.name] && staticData.users[decoded.name].password === decoded.password) {
+					res.json(staticData);
+				} else {
+					res.status(403);
+						res.json({
+						succes: false,
+						msg: 'Érvénytelen token.'
+					});
+				}
+			}
+		});
+	} else {
+		res.status(403);
+		res.json({
+			succes: false,
+			msg: 'Nem érkezett token.'
+		});
+	}
+});
 
+app.post('/setup', function(req, res) {
 	// create a sample user
 	var user = { 
 		name: req.body.name, 
 		password: req.body.pass,
 	};
-	if (!config.users) {
-		config.users = {};
-	}
-	if(config.users[user.name]) {
+	if(staticData.users[user.name]) {
 		res.json({succes: false, msg: 'Már létező felhasználó.'});
 	} else {
-		config.users[user.name] = user;
+		staticData.users[user.name] = user;
 		res.json({success: true});
 	}
 
+});
+
+app.post('/login', function(req, res) {
+	console.log(staticData.users);
+	if (staticData.users[req.body.name] === undefined) {
+		res.json({
+			success: false,
+			msg: 'Nem létező felhasználó.'
+		});
+	} else if (staticData.users[req.body.name].password !== req.body.pass) {
+		res.json({
+			success: false,
+			msg: 'Rossz jelszó.'
+		});
+	} else {
+		var token = jwt.sign(staticData.users[req.body.name], config.secret, { exoiresInMinutes: 1440 });
+		res.json({
+			success: true,
+			token: token
+		});
+	}
 });
 
 
